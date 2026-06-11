@@ -17,7 +17,7 @@ INSERT IGNORE INTO dogs (owner_id, name, breed) VALUES
 
 -- 유치원 1개
 INSERT IGNORE INTO kindergartens (director_id, name, address) VALUES
-  (3, '행복한 발바닥', '서울시 강남구 테헤란로 123');
+  (5, '행복한 발바닥', '서울시 강남구 테헤란로 123');
 
 -- 원생 등록 2건
 INSERT IGNORE INTO enrollments (dog_id, kindergarten_id, enrolled_date) VALUES
