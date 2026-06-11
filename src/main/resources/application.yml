@@ -10,18 +10,16 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: ${JPA_DDL_AUTO:validate}
-    show-sql: false
+      ddl-auto: validate
+    show-sql: true
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
-        format_sql: false
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
 
-  sql:
-    init:
-      mode: ${SQL_INIT_MODE:never}
-      schema-locations: classpath:schema.sql
-      data-locations: classpath:data.sql
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
 
   security:
     oauth2:
@@ -35,7 +33,6 @@ spring:
             client-authentication-method: client_secret_post
             scope:
               - profile_nickname
-              - account_email
         provider:
           kakao:
             authorization-uri: https://kauth.kakao.com/oauth/authorize
@@ -47,3 +44,13 @@ jwt:
   secret: ${JWT_SECRET}
   access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:3600000}
   refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
+
+logging:
+  level:
+    root: INFO
+    com.kakaoLogin: DEBUG                                    # 우리 코드 전부
+    org.springframework.security: DEBUG                     # Security 필터 체인
+    org.springframework.security.oauth2: DEBUG              # OAuth2 흐름
+    org.springframework.web: DEBUG                          # HTTP 요청/응답
+    org.hibernate.SQL: DEBUG                                # 실행되는 SQL
+    org.hibernate.orm.jdbc.bind: TRACE                      # SQL 바인딩 파라미터
