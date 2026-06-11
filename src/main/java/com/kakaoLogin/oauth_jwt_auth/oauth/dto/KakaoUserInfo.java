@@ -30,17 +30,4 @@ public class KakaoUserInfo {
             return "Unknown";
         }
     }
-
-    public String getEmail() {
-        try {
-            @SuppressWarnings("unchecked")
-            Map<String, Object> kakaoAccount = (Map<String, Object>) attributes.get("kakao_account");
-            if (kakaoAccount == null) return null;
-
-            Object email = kakaoAccount.get("email");
-            return email != null ? (String) email : null;
-        } catch (Exception e) {
-            return null;
-        }
-    }
 }
