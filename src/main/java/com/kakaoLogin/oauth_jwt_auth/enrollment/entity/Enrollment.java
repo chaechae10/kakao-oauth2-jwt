@@ -1,4 +1,4 @@
-package com.kakaoLogin.oauth_jwt_auth.user.entity;
+package com.kakaoLogin.oauth_jwt_auth.enrollment.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

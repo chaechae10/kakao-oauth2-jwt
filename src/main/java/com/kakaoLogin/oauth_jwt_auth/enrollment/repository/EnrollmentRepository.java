@@ -1,6 +1,6 @@
-package com.kakaoLogin.oauth_jwt_auth.user.repository;
+package com.kakaoLogin.oauth_jwt_auth.enrollment.repository;
 
-import com.kakaoLogin.oauth_jwt_auth.user.entity.Enrollment;
+import com.kakaoLogin.oauth_jwt_auth.enrollment.entity.Enrollment;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
