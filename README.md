@@ -1,6 +1,6 @@
 # oauth-jwt-auth
 
-카카오 OAuth2 로그인 + JWT 인증 서버
+카카오 OAuth2 로그인 
 
 ## 기술 스택
 - Java 21
@@ -15,9 +15,5 @@
 main ← epic/auth ← feature/*
 ```
 
-## 환경 설정
-`.env.example`을 참고하여 `.env` 파일을 생성
-
-```bash
-cp .env.example .env
-```
+## 전체 흐름
+<img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/779a14ee-8e27-43ef-8248-0a3c8c43bfa4" />
