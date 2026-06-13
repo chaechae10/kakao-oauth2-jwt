@@ -23,4 +23,10 @@ public class Kindergarten {
 
     @Column(length = 255)
     private String address;
+
+    @Column
+    private Double latitude;
+
+    @Column
+    private Double longitude;
 }
