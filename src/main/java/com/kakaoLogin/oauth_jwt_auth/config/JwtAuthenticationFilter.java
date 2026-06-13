@@ -28,7 +28,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private static final List<String> EXCLUDED_PATHS = List.of(
             "/oauth2/**",
             "/login/oauth2/**",
-            "/api/auth/**"
+            "/api/auth/refresh"
     );
 
     @Override

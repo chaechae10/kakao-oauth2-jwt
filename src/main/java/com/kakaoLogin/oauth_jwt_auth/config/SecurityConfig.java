@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .requestMatchers("/oauth2/**").permitAll()
                 .requestMatchers("/login/oauth2/**").permitAll()
                 .requestMatchers("/api/auth/refresh").permitAll()
-                .requestMatchers("/api/auth/logout").permitAll()
+                .requestMatchers("/api/auth/logout").authenticated()
                 .requestMatchers("/api/**").authenticated()
                 .anyRequest().permitAll()
             )
