@@ -1,11 +1,11 @@
 package com.kakaoLogin.oauth_jwt_auth.home.service;
 
+import com.kakaoLogin.oauth_jwt_auth.attendance.entity.Attendance;
+import com.kakaoLogin.oauth_jwt_auth.attendance.repository.AttendanceRepository;
 import com.kakaoLogin.oauth_jwt_auth.dog.entity.Dog;
 import com.kakaoLogin.oauth_jwt_auth.dog.repository.DogRepository;
-import com.kakaoLogin.oauth_jwt_auth.enrollment.entity.Enrollment;
-import com.kakaoLogin.oauth_jwt_auth.enrollment.repository.EnrollmentRepository;
 import com.kakaoLogin.oauth_jwt_auth.home.dto.DirectorHomeResponse;
-import com.kakaoLogin.oauth_jwt_auth.home.dto.DirectorHomeResponse.EnrolledDogInfo;
+import com.kakaoLogin.oauth_jwt_auth.home.dto.DirectorHomeResponse.TodayDogInfo;
 import com.kakaoLogin.oauth_jwt_auth.home.dto.OwnerHomeResponse;
 import com.kakaoLogin.oauth_jwt_auth.home.dto.OwnerHomeResponse.DogInfo;
 import com.kakaoLogin.oauth_jwt_auth.home.dto.OwnerHomeResponse.KindergartenInfo;
@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -30,7 +31,7 @@ public class HomeService {
     private final UserRepository userRepository;
     private final DogRepository dogRepository;
     private final KindergartenRepository kindergartenRepository;
-    private final EnrollmentRepository enrollmentRepository;
+    private final AttendanceRepository attendanceRepository;
 
     public OwnerHomeResponse getOwnerHome(Long userId, double x, double y) {
         userRepository.findById(userId)
@@ -72,13 +73,14 @@ public class HomeService {
         Kindergarten kindergarten = kindergartenRepository.findByDirectorId(userId)
                 .orElseThrow(() -> new RuntimeException("유치원 없음"));
 
-        List<Enrollment> enrollments = enrollmentRepository.findAllByKindergartenId(kindergarten.getId());
+        List<Attendance> todayAttendances = attendanceRepository
+                .findByKindergartenIdAndAttendedDate(kindergarten.getId(), LocalDate.now());
 
-        List<EnrolledDogInfo> enrolledDogInfos = enrollments.stream()
-                .map(e -> {
-                    Dog dog = dogRepository.findById(e.getDogId()).orElseThrow();
+        List<TodayDogInfo> todayDogInfos = todayAttendances.stream()
+                .map(a -> {
+                    Dog dog = dogRepository.findById(a.getDogId()).orElseThrow();
                     User owner = userRepository.findById(dog.getOwnerId()).orElseThrow();
-                    return EnrolledDogInfo.builder()
+                    return TodayDogInfo.builder()
                             .id(dog.getId())
                             .name(dog.getName())
                             .breed(dog.getBreed())
@@ -90,8 +92,8 @@ public class HomeService {
         return DirectorHomeResponse.builder()
                 .role("DIRECTOR")
                 .kindergartenName(kindergarten.getName())
-                .enrolledDogs(enrolledDogInfos)
-                .todayAttendance(enrolledDogInfos.size())
+                .todayDogs(todayDogInfos)
+                .todayAttendance(todayDogInfos.size())
                 .build();
     }
 }

@@ -15,14 +15,14 @@ public class DirectorHomeResponse {
 
     private String role;
     private String kindergartenName;
-    private List<EnrolledDogInfo> enrolledDogs;
+    private List<TodayDogInfo> todayDogs;
     private int todayAttendance;
 
     @Getter
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class EnrolledDogInfo {
+    public static class TodayDogInfo {
         private Long id;
         private String name;
         private String breed;
