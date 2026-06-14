@@ -34,14 +34,6 @@ cp .env.example .env
 | KAKAO_REDIRECT_URI | Redirect URI | http://localhost:8080/login/oauth2/code/kakao |
 | JWT_SECRET | JWT 서명 비밀키 (256bit 이상) | openssl rand -base64 64 |
 
-JWT Secret 생성 예시
-
-```bash
-
-openssl rand -base64 64
-
-```
-
 ### 4. 서버 실행
 
 ```bash
@@ -57,4 +49,4 @@ openssl rand -base64 64
 | POST | `/api/auth/refresh` | 토큰 재발급 | `{ "accessToken": "...", "refreshToken": "..." }` |
 | POST | `/api/auth/logout` | 로그아웃 | `{ "message": "Logout Success" }` |
 | GET | `/api/home?x={경도}&y={위도}` | OWNER 홈 데이터 조회 | `{ "role": "OWNER", "myDogs": [...], "nearbyKindergartens": [...] }` |
-| GET | `/api/home?x={경도}&y={위도}` | DIRECTOR 홈 데이터 조회 | `{ "role": "DIRECTOR", "kindergartenName": "...", "todayDogs": [...], "todayAttendance": 1 }` |
+| GET | `/api/home` | DIRECTOR 홈 데이터 조회 | `{ "role": "DIRECTOR", "kindergartenName": "...", "todayDogs": [...], "todayAttendance": 1 }` |
